@@ -1,86 +1,289 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Form validation</title>
-    <link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-<section id="exercise">
-    Create a function that validates the next form, each field should be validated when it loses focus, if the field does not meet the requirements a message should appear in the Errors section
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <section id="exercise">
+      Create a function that validates the next form, each field should be
+      validated when it loses focus, if the field does not meet the requirements
+      a message should appear in the Errors section when the user Submits the
+      form, you should validate all the fields in the form and if there is an
+      error in one of the fields, the form won't be sent. This are the
+      requirements for each field:
 
-    when the user Submits the form, you should validate all the fields in the form and if there is an error in one of the fields, the form won't be sent.
-
-    This are the requirements for each field:
-
-    <ul>
+      <ul>
         <li><label>First Name, Email, Comments:</label> are required fields</li>
         <li><label>Email:</label> should be a valid email address</li>
         <li><label>Comments:</label> the character max limit is 50</li>
-        <li><label>Password:</label> should have a 6 characters minimum length and contains at leas 1 lowercase, 1 uppercase and 1 digit</li>
-
-    </ul>
-</section>
-<section class="container">
-    <form method="POST" id="signIn">
+        <li>
+          <label>Password:</label> should have a 6 characters minimum length and
+          contains at leas 1 lowercase, 1 uppercase and 1 digit
+        </li>
+      </ul>
+    </section>
+    <section class="container">
+      <form method="POST" id="signIn">
         <fieldset>
-            <legend>Sign In</legend>
-            <ul class="flex-outer">
+          <legend>Sign In</legend>
+          <ul class="flex-outer">
+            <li>
+              <label for="first-name">First Name</label>
+              <input
+                type="text"
+                id="first-name"
+                placeholder="Enter your first name here"
+                onblur="validationName(this)"
+              />
+            </li>
+            <li>
+              <label for="last-name">Last Name</label>
+              <input
+                type="text"
+                id="last-name"
+                placeholder="Enter your last name here"
+                onblur="validationLastName()"
+              />
+            </li>
+            <li>
+              <label for="email">Email</label>
+              <input
+                type="text"
+                id="email"
+                placeholder="Enter your email here"
+                onblur="validationEmail(this)"
+              />
+            </li>
+            <li>
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password here"
+                onblur="validationPassword(this)"
+              />
+            </li>
+            <li>
+              <label for="phone">Phone</label>
+              <input
+                type="text"
+                id="phone"
+                placeholder="Enter your phone here"
+              />
+            </li>
+            <li>
+              <p>Vehicle</p>
+              <h6 id="makeErrorTypeBike" style="margin: 0; color: red;" class="vehicle visibleErrorVehicle">
+                Selection Required
+              </h6>
+              <ul class="vehicle">
                 <li>
-                    <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" placeholder="Enter your first name here">
+                  <input
+                    type="checkbox"
+                    id="car"
+                    name="car"
+                    value="car"
+                    onclick="displayCar(), validationVehicles()"
+                  />
+                  <label for="car">I have a Car</label>
                 </li>
+                <fieldset class="car-form hiddenCar">
+                  <ul>
+                    <label>CAR</label>
+                    <br/>
+                    <div>
+                      Make:
+                      <input
+                        type="text"
+                        id="car-make"
+                        onblur="validateString(this, 'makeError')"
+                      />
+                      <h6 id="makeError" style="margin: 0; color: red;" hidden>
+                        Error
+                      </h6>
+                    </div>
+                    <br />
+                    <div>Model: <input type="text" id="car-model" /></div>
+                    <br />
+                    <form id="color" >
+                      <label for="Color"> Color: </label><br />
+                      <input type="radio" name="color" id="White" onclick="validateRadious()"/>
+                      <label for="White">White</label><br />
+                      <input type="radio" name="color" id="Black" onclick="validateRadious()" />
+                      <label for="Black">Black</label><br />
+                      <input type="radio" name="color" id="Red" onclick="validateRadious()"/>
+                      <label for="Red">Red</label><br />
+                      <input type="radio" name="color" id="Silver" onclick="validateRadious()"/>
+                      <label for="Silver">Silver</label><br />
+                      <input type="radio" name="color" id="Green" onclick="validateRadious()"/>
+                      <label for="Green">Green</label><br />
+                      <h6 id="colorError" style="margin: 0; color: red;" class="errorColor visibleErrorCar">
+                        Error
+                      </h6>
+                    </form>
+                    <br />
+                    <div>
+                      Doors:
+                      <input
+                        type="number" min="1" max="5"
+                        id="Doors"
+                        onblur="validateString(this, 'doorsError')"
+                      />
+                      <h6 id="doorsError" style="margin: 0; color: red;" hidden>
+                        Error
+                      </h6>
+                    </div>
+                  </ul>
+                </fieldset>
+
                 <li>
-                    <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" placeholder="Enter your last name here">
+                  <input
+                    type="checkbox"
+                    id="bike"
+                    name="bike"
+                    value="bike"
+                    onclick="displayBike(), validationVehicles()"
+                  />
+                  <label>I have a Bike</label>
                 </li>
+                <fieldset class="bike-form hiddenBike">
+                  <ul>
+                    <label for="bike">BIKE</label><br />
+                    <div>
+                      Make: <input
+                      type="text"
+                      id="bike-make"
+                      onblur="validateString(this, 'bikeMakeError')"
+                      />
+                      <h6 id="bikeMakeError" style="margin: 0; color: red;" hidden>
+                        Error
+                      </h6> <br /><br />
+                      Type: <input
+                      type="text"
+                      id="bike-make"
+                      onblur="validateString(this, 'typeBikeError')"
+                      /> 
+                      <h6 id="typeBikeError" style="margin: 0; color: red;" hidden>
+                        Error
+                      </h6><br /><br />
+                      <form id="color">
+                        <label for="Color"> Color: </label><br />
+                        <input type="radio" name="color" id="White" />
+                        <label for="White">White</label><br />
+                        <input type="radio" name="color" id="Black" />
+                        <label for="Black">Black</label><br />
+                        <input type="radio" name="color" id="Red" />
+                        <label for="Red">Red</label><br />
+                        <input type="radio" name="color" id="Silver" />
+                        <label for="Silver">Silver</label><br />
+                        <input type="radio" name="color" id="Green" />
+                        <label for="Green">Green</label><br />
+                        <h6 id="colorError" style="margin: 0; color: red;" hidden>
+                          Error
+                        </h6><br>
+                      </form>
+                      <form >
+                      <label for="bikeAcc">Accesories</label>
+                       <br />
+                      <label for="bikeAcc">Pedals</label>
+                      <input type="checkbox" id="pedals" onclick="validateAccesory()"/> <br />
+                      <label for="bikeAcc" >Tire</label>
+                      <input type="checkbox" id="tire" onclick="validateAccesory()"/> <br />
+                      <label for="bikeAcc">Lights</label>
+                      <input type="checkbox" id="lights" onclick="validateAccesory()"/> <br />
+                      <h6 id="colorError" style="margin: 0; color: red;" class="errorAccesory visibleErrorBike">
+                        Error
+                      </h6>
+                    </form>
+                    </div>
+                  </ul>
+                </fieldset>
+
                 <li>
-                    <label for="email">Email</label>
-                    <input type="text" id="email" placeholder="Enter your email here">
+                  <input
+                    type="checkbox"
+                    id="motorcycle"
+                    name="motorcycle"
+                    value="motorcycle"
+                    onclick="displayMotorcycle(), validationVehicles()"
+                  />
+                  <label for="motorcycle">I have a Motorcycle</label>
                 </li>
-                <li>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password here">
-                </li>
-                <li>
-                    <label for="phone">Phone</label>
-                    <input type="text" id="phone" placeholder="Enter your phone here">
-                </li>
-                <li>
-                    <p>Vehicle</p>
-                    <ul class="vehicle">
-                        <li>
-                            <input type="checkbox" id="car" name="car" value="car">
-                            <label for="car">I have a Car</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="bike" name="bike" value="bike">
-                            <label for="bike">I have a Bike</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="motorcycle" name="motorcycle" value="motorcycle">
-                            <label for="motorcycle">I have a Motorcycle</label>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <label for="comments">Comments</label>
-                    <textarea rows="6" id="comments" placeholder="Enter your comments here"></textarea>
-                </li>
-                <li class="error-list hidden">
-                    <label>Error</label>
-                    <ul>
-                        <li>first name</li>
-                    </ul>
-                </li>
-                <li>
-                    <button type="submit">Submit</button>
-                </li>
-            </ul>
+                <fieldset class="motorcycle-form hiddenMotorcycle">
+                  <ul>
+                    <label>Motorcycle</label>
+                    <br>
+                    <div>
+                      Make: 
+                      <input type="text" id="motorcycle-make"
+                      onblur="validateString(this, 'makeError')">
+                      <h6 id="makeError" style="margin:0 ; color: red;" hidden>
+                        Error
+                      </h6>
+                    </div>
+                    <br>
+                    <div>
+                      Model: 
+                      <input type="text" id="motorcycle-model">
+                    </div>
+                    <br>
+                    <form id="color" onblur="validateRadious(this)">
+                      <label for="Color"> Color: </label><br />
+                      <input type="radio" name="color" id="White" />
+                      <label for="White">White</label><br />
+                      <input type="radio" name="color" id="Black" />
+                      <label for="Black">Black</label><br />
+                      <input type="radio" name="color" id="Red" />
+                      <label for="Red">Red</label><br />
+                      <input type="radio" name="color" id="Silver" />
+                      <label for="Silver">Silver</label><br />
+                      <input type="radio" name="color" id="Green" />
+                      <label for="Green">Green</label><br />
+                      <h6 id="colorError" style="margin: 0; color: red;" hidden>
+                        Error
+                      </h6>
+                    </form>
+                    <br>
+                    <form id="type">
+                    <label>Type:</label><br>                      
+                      <input type="radio" name="type" id="city" onclick="validateRadiousMoto()">
+                      <label for="type">City</label><br />                      
+                      <input type="radio" name="type" id="road" onclick="validateRadiousMoto()">
+                      <label for="type">Road</label><br />                
+                      <input type="radio" name="type" id="terrain" onclick="validateRadiousMoto()">
+                      <label for="type">All-Terrain</label><br />
+                      <h6 id="colorError" style="margin: 0; color: red;" class="errorType visibleErrorMoto">
+                        Error
+                      </h6>
+                    </form>
+                  </ul>
+              </fieldset>
+              </ul>
+            </li>
+            <li>
+              <label for="comments">Comments</label>
+              <textarea
+                rows="6"
+                id="comment"
+                placeholder="Enter your comments here"
+                onblur="validationComments(this)"
+              ></textarea>
+            </li>
+            <li class="error-list ">
+              <label>Error</label>
+              <ul id="errorList">
+
+              </ul>
+            </li>
+            <li>
+              <button type="submit" id="subForm">Submit</button>
+            </li>
+          </ul>
         </fieldset>
-    </form>
-</section>
-<script type="text/javascript" src="js/main.js"></script>
-</body>
+      </form>
+    </section>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
 </html>

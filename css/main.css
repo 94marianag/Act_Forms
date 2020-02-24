@@ -103,4 +103,45 @@ body {
     display: list-item;
 }
 
+.hiddenCar {
+    display: none;
+}
+
+.hiddenBike {
+    display: none;
+}
+
+.hiddenMotorcycle {
+    display: none;
+}
+
+.hiddenErrorCar{
+    display: none;
+}
+.visibleErrorCar {
+    display: inline;
+}
+
+.hiddenErrorMoto{
+    display: none;
+}
+
+.visibleErrorMoto{
+    display: inline;
+}
+
+.hiddenErrorBike{
+    display: none;
+}
+
+.visibleErrorBike{
+    display: inline;
+}
+
+.hiddenErrorVehicle{
+    display: none;
+}
+.visibleErrorVehicle{
+    display: inline;
+}
 
